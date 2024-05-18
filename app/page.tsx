@@ -1,15 +1,19 @@
+'use client';
 import { Button } from '@chakra-ui/react';
+import { useEffect } from 'react';
 
-export default async function Home() {
-  const res = await fetch('https://dummyjson.com/test');
-
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
+export default function Home() {
+  useEffect(() => {
+    (async () => {
+      const res = await fetch('/api');
+      const json = await res.json();
+      console.log(json);
+    })();
+  }, []);
 
   return (
     <div>
-      <Button>Hello</Button>
+      <Button>hi</Button>
     </div>
   );
 }
