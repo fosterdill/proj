@@ -1,21 +1,26 @@
+'use client';
 import { List, ListItem } from '@chakra-ui/react';
-import { sql } from '@vercel/postgres';
-import { drizzle } from 'drizzle-orm/vercel-postgres';
 import { useEffect, useState } from 'react';
 
-import { users } from '@/schema';
+import { User } from '@/schema';
 
-const db = drizzle(sql);
+export default function Home() {
+  const [users, setUsers] = useState<{ result: User[] }>({ result: [] });
 
-export default async function Home() {
-  const result = await db.select().from(users);
+  useEffect(() => {
+    (async () => {
+      const res = await fetch(`/api/users`);
+      const users: { result: User[] } = await res.json();
+
+      setUsers(users);
+    })();
+  }, []);
+
   return (
     <List>
-      {result.map((user) => {
+      {users.result.map((user: User) => {
         return <ListItem key={user.id}>{user.firstName}</ListItem>;
       })}
     </List>
   );
 }
-
-export const revalidate = 60;
