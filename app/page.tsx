@@ -7,6 +7,7 @@ export default async function Home() {
   // const res = await fetch(`${baseUrl}/api/users`);
   // const users = (await res.json()).result;
 
+  console.log(process.env.VERCEL_URL);
   return (
     <List>
       {process.env.VERCEL_URL}
