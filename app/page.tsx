@@ -1,7 +1,17 @@
-'use client';
-import { Button } from '@chakra-ui/react';
-import { useEffect } from 'react';
+import { List, ListItem } from '@chakra-ui/react';
 
-export default function Home() {
-  return <div>Body</div>;
+import baseUrl from '@/baseUrl';
+import { User } from '@/schema';
+
+export default async function Home() {
+  const res = await fetch(`${baseUrl}/api/users`);
+  const users = (await res.json()).result;
+
+  return (
+    <List>
+      {users.map((user: User) => {
+        return <ListItem key={user.id}>{user.firstName}</ListItem>;
+      })}
+    </List>
+  );
 }

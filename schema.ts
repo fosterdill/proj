@@ -7,3 +7,5 @@ export const users = pgTable('users', {
   firstName: text('first_name').notNull(),
   lastName: text('last_name').notNull(),
 });
+
+export type User = typeof users.$inferSelect;
