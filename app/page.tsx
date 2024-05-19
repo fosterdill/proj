@@ -7,7 +7,6 @@ export default function Home() {
     (async () => {
       const res = await fetch('/api');
       const json = await res.json();
-      console.log(json);
     })();
   }, []);
 
