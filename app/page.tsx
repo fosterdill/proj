@@ -1,20 +1,26 @@
+'use client';
 import { List, ListItem } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
-import baseUrl from '@/baseUrl';
 import { User } from '@/schema';
 
-export default async function Home() {
-  // const res = await fetch(`${baseUrl}/api/users`);
-  // const users = (await res.json()).result;
+export default function Home() {
+  const [users, setUsers] = useState({});
 
-  console.log(process.env.VERCEL_URL);
+  useEffect(() => {
+    (async () => {
+      const res = await fetch(`/api/users`);
+      const users = await res.json();
+
+      setUsers(users);
+    })();
+  }, []);
+
   return (
     <List>
-      {process.env.VERCEL_URL}
-
-      {/* {users.map((user: User) => {
+      {users?.result?.map((user: User) => {
         return <ListItem key={user.id}>{user.firstName}</ListItem>;
-      })} */}
+      })}
     </List>
   );
 }
