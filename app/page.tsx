@@ -9,6 +9,8 @@ export default async function Home() {
 
   return (
     <List>
+      {process.env.VERCEL_URL}
+
       {/* {users.map((user: User) => {
         return <ListItem key={user.id}>{user.firstName}</ListItem>;
       })} */}
