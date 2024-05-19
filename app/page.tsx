@@ -5,12 +5,12 @@ import { useEffect, useState } from 'react';
 import { User } from '@/schema';
 
 export default function Home() {
-  const [users, setUsers] = useState({});
+  const [users, setUsers] = useState<{ result: User[] }>({ result: [] });
 
   useEffect(() => {
     (async () => {
       const res = await fetch(`/api/users`);
-      const users = await res.json();
+      const users: { result: User[] } = await res.json();
 
       setUsers(users);
     })();
@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <List>
-      {users?.result?.map((user: User) => {
+      {users.result.map((user: User) => {
         return <ListItem key={user.id}>{user.firstName}</ListItem>;
       })}
     </List>
