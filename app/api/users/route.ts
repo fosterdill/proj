@@ -10,3 +10,11 @@ export async function GET() {
 
   return NextResponse.json({ result }, { status: 200 });
 }
+
+export async function POST(request: Request) {
+  const db = drizzle(sql);
+  const body = await request.json();
+  const result = await db.insert(users).values({ firstName: body.first_name, lastName: body.last_name });
+
+  return NextResponse.json({ result }, { status: 200 });
+}
