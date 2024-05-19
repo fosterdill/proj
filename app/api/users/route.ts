@@ -5,10 +5,14 @@ import { NextResponse } from 'next/server';
 import { users } from '@/schema';
 
 export async function GET() {
-  const db = drizzle(sql);
-  const result = await db.select().from(users);
+  try {
+    const db = drizzle(sql);
+    const result = await db.select().from(users);
 
-  return NextResponse.json({ result }, { status: 200 });
+    return NextResponse.json({ result }, { status: 200 });
+  } catch (e) {
+    return NextResponse.json({ error: JSON.stringify(e) }, { status: 500 });
+  }
 }
 
 export async function POST(request: Request) {
